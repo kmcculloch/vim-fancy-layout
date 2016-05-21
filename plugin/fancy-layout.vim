@@ -16,14 +16,6 @@ function! FancyLayoutInit()
   call NERDTreeAddKeyMap({ 'key': 'gb', 'scope': "FileNode", 'callback': s."FancyLayoutPreviewB" })
   call NERDTreeAddKeyMap({ 'key': 'gb', 'scope': "Bookmark", 'callback': s."FancyLayoutPreviewB" })
 
-  " Use our custom quit routines for all window/buffer delete commands
-  call cabbrevplus#Cabbrev('bd', 'FancyLayoutQ')
-  call cabbrevplus#Cabbrev('bw', 'FancyLayoutQ')
-  call cabbrevplus#Cabbrev('bu', 'FancyLayoutQ')
-  call cabbrevplus#Cabbrev('bun', 'FancyLayoutQ')
-  call cabbrevplus#Cabbrev('q', 'FancyLayoutQ')
-  call cabbrevplus#Cabbrev('wq', 'FancyLayoutWQ')
-
   " Open the nerd tree and build the windows
   call FancyLayoutBuildWindows()
 
@@ -127,11 +119,14 @@ function! FancyLayoutQ()
   if l:winnr ==# 1
     " This is the nerd tree; do nothing
   elseif l:winnr ==# 2
-    :MBEbw
+    ":MBEbw
+    call <SID>DeleteBuffer(1, '<bang>'=='!',<f-args>)
   elseif l:winnr ==# 3
-    :MBEbw
+    call <SID>DeleteBuffer(1, '<bang>'=='!',<f-args>)
+    ":MBEbw
   elseif l:winnr ==# 4
-    :MBEbw
+    call <SID>DeleteBuffer(1, '<bang>'=='!',<f-args>)
+    ":MBEbw
   endif
 endfunction
 
